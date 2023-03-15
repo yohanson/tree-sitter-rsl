@@ -1,0 +1,20 @@
+=====
+Macro
+=====
+
+mAcro x(a, b): iNteger
+  return 1;
+end
+
+---
+
+(source_file
+  (function_definition
+    (identifier)
+    (parameter_list
+      (identifier)
+      (identifier)
+    )
+    (scalar_type)
+    (block
+      (return_statement (number)))))

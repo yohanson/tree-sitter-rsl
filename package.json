@@ -1,0 +1,17 @@
+{
+  "name": "tree-sitter-rsl",
+  "version": "1.0.0",
+  "description": "RSBank's RSL macro language",
+  "main": "bindings/node",
+  "scripts": {
+    "test": "tree-sitter test"
+  },
+  "keywords": [
+    "rsl"
+  ],
+  "author": "Michael Mikhailov",
+  "license": "ISC",
+  "dependencies": {
+    "nan": "^2.17.0"
+  }
+}

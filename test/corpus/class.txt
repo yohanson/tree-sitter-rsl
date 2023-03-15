@@ -1,0 +1,31 @@
+================================================================================
+Class definition
+================================================================================
+
+Class Person (Name, Surname)
+   // Список свойств и методов класса Person
+   var v1;
+   Macro sayName()
+     println(Name);
+   end;
+end;
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (identifier)
+    (parameter_list
+      (identifier)
+      (identifier))
+    (comment_inline)
+    (variable_definition
+      (identifier))
+    (function_definition
+      (identifier)
+      (parameter_list)
+      (block
+        (function_call
+          (identifier)
+          (argument_list
+            (identifier)))))))

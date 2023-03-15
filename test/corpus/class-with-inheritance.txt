@@ -1,0 +1,37 @@
+================================================================================
+Class with inheritance
+================================================================================
+
+Class (Person) Employee (Name, Surname, Post)
+   InitPerson (Name, Surname);   // Инициализация класса Person в классе Employee 
+   Macro Report()
+      println("Post: ", Post);
+   end;
+end;
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (parent_classes
+      (identifier))
+    (identifier)
+    (parameter_list
+      (identifier)
+      (identifier)
+      (identifier))
+    (function_call
+      (identifier)
+      (argument_list
+        (identifier)
+        (identifier)))
+    (comment_inline)
+    (function_definition
+      (identifier)
+      (parameter_list)
+      (block
+        (function_call
+          (identifier)
+          (argument_list
+            (string_literal)
+            (identifier)))))))

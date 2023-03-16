@@ -26,13 +26,25 @@ module.exports = grammar({
     comment_inline: $ => /\/\/.*\n/,
     comment_block: $ => /\/\*.*\*\//,
 
+    variable_definition_single: $ => seq(
+        $.identifier,
+        optional(
+            seq(
+                optional($.type_hint),
+                '=',
+                $._expression,
+            )
+        )
+    ),
     variable_definition: $ => seq(
         caseInsensitive('var'),
-        $.identifier,
-        repeat(seq(
-            ',',
-            $.identifier,
-        )),
+        $.variable_definition_single,
+        repeat(
+            seq(
+                ',',
+                $.variable_definition_single
+            )
+        ),
         ';'
     ),
 
@@ -60,11 +72,13 @@ module.exports = grammar({
         caseInsensitive('Macro'),
         $.identifier,
         $.parameter_list,
-        optional(seq(
-            ':',
-            $._type,
-        )),
+        optional($.type_hint),
         $.block,
+    ),
+
+    type_hint: $ => seq(
+        ':',
+        $._type,
     ),
 
     parameter_list: $ => seq(

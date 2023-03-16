@@ -50,6 +50,48 @@
       "type": "PATTERN",
       "value": "\\/\\*.*\\*\\/"
     },
+    "variable_definition_single": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "type_hint"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                },
+                {
+                  "type": "STRING",
+                  "value": "="
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_expression"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
     "variable_definition": {
       "type": "SEQ",
       "members": [
@@ -59,7 +101,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "identifier"
+          "name": "variable_definition_single"
         },
         {
           "type": "REPEAT",
@@ -72,7 +114,7 @@
               },
               {
                 "type": "SYMBOL",
-                "name": "identifier"
+                "name": "variable_definition_single"
               }
             ]
           }
@@ -198,17 +240,8 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": ":"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "_type"
-                }
-              ]
+              "type": "SYMBOL",
+              "name": "type_hint"
             },
             {
               "type": "BLANK"
@@ -218,6 +251,19 @@
         {
           "type": "SYMBOL",
           "name": "block"
+        }
+      ]
+    },
+    "type_hint": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_type"
         }
       ]
     },

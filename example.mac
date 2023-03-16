@@ -1,0 +1,32 @@
+// vi:ft=rsl:
+Class First()             // Класс-родитель
+   Var x = 2, y = 3;
+
+
+   Macro Sum()
+      return x + y;
+   end;
+end;
+
+
+Class (First) Second()    // Класс-наследник
+   InitFirst();
+   Var a = 100;
+
+
+   Macro Sum()            // Начало переопределения родительского метода Sum()
+      return Sum() + a;   //   Использование родительского метода Sum() в методе Sum() наследника 
+   end;                   // Конец переопределения родительского метода Sum()
+
+
+   Macro Sum2()
+      return Sum() + a;   // Использование метода Sum() наследника
+   end;
+end;
+
+
+obj = Second();           // Создание объекта класса Second()
+
+
+println(obj.Sum());    // Результат: 105
+println(obj.Sum2());   // Результат: 205

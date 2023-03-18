@@ -12,20 +12,21 @@ end;
 
 --------------------------------------------------------------------------------
 
-(source_file
+(unit
   (class_definition
     (identifier)
     (parameter_list
       (identifier)
       (identifier))
-    (comment_inline)
-    (variable_definition
-      (identifier))
-    (function_definition
-      (identifier)
-      (parameter_list)
-      (block
-        (function_call
-          (identifier)
-          (argument_list
-            (identifier)))))))
+    (comment)
+    (class_body
+      (variable_definition
+        (identifier))
+      (function_definition
+        (identifier)
+        (parameter_list)
+        (block
+          (function_call
+            (identifier)
+            (argument_list
+              (identifier))))))))

@@ -1,151 +1,206 @@
-function caseInsensitive (keyword) {
-  return new RegExp(keyword
-    .split('')
-    .map(letter => `[${letter.toLowerCase()}${letter.toUpperCase()}]`)
-    .join('')
-  )
-}
+// vi:ts=2:sw=2:et
 
 module.exports = grammar({
   name: 'rsl',
 
+  extras: $ => [
+    /\s/,
+    $.comment,
+  ],
+
   rules: {
-    source_file: $ => repeat($._definition),
+    unit: $ => repeat(
+      choice(
+        $._definition,
+        $._statement
+      )
+    ),
     _definition: $ => choice(
-        $.function_definition,
-        $.class_definition,
-        $.variable_definition,
-        $._comment,
+      $.function_definition,
+      $.class_definition,
+      $._variable_definition_block,
     ),
 
-    _comment: $ => choice(
-        $.comment_inline,
-        $.comment_block,
+    comment: $ => token(choice(
+      seq('//', /(\\(.|\r?\n)|[^\\\n])*/),
+      seq(
+        '/*',
+        /[^*]*\*+([^/*][^*]*\*+)*/,
+        '/'
+      )
+    )),
+
+    _end: $ => seq(
+      caseInsensitive('end'),
+      optional(';')
     ),
 
-    comment_inline: $ => /\/\/.*\n/,
-    comment_block: $ => /\/\*.*\*\//,
-
-    variable_definition_single: $ => seq(
-        $.identifier,
-        optional(
-            seq(
-                optional($.type_hint),
-                '=',
-                $._expression,
-            )
-        )
-    ),
     variable_definition: $ => seq(
-        caseInsensitive('var'),
-        $.variable_definition_single,
-        repeat(
-            seq(
-                ',',
-                $.variable_definition_single
-            )
-        ),
-        ';'
+      $.identifier,
+      optional(
+        seq(
+          optional($.type_hint),
+          $.assignment_operator,
+          $._expression,
+        )
+      )
+    ),
+    _variable_definition_block: $ => seq(
+      caseInsensitive('var'),
+      $.variable_definition,
+      repeat(
+        seq(
+          ',',
+          $.variable_definition
+        )
+      ),
+      ';'
     ),
 
     class_definition: $ => seq(
-        caseInsensitive('class'),
-        optional($.parent_classes),
-        $.identifier,
-        optional($.parameter_list),
-        optional(repeat($._statement)),
-        repeat($._definition),
-        caseInsensitive('end;'),
+      caseInsensitive('class'),
+      optional($.parent_classes),
+      $.identifier,
+      optional($.parameter_list),
+      $.class_body,
+    ),
+    class_body: $ => seq(
+      repeat(choice(
+        $._variable_definition_block,
+        $.function_definition,
+        $._statement,
+      )),
+      $._end
     ),
 
     parent_classes: $ => seq(
-        '(',
+      '(',
         $.identifier,
         repeat(seq(
-            ',',
-            $.identifier,
+          ',',
+          $.identifier,
         )),
         ')'
     ),
 
     function_definition: $ => seq(
-        caseInsensitive('Macro'),
-        $.identifier,
-        $.parameter_list,
-        optional($.type_hint),
-        $.block,
+      caseInsensitive('macro'),
+      $.identifier,
+      $.parameter_list,
+      optional($.type_hint),
+      field('function_body', $.block),
     ),
 
     type_hint: $ => seq(
-        ':',
-        $._type,
+      ':',
+      $._type,
     ),
 
     parameter_list: $ => seq(
-        '(',
+      '(',
         repeat(seq(
-            $.identifier,
-            optional(',')
+          $.identifier,
+          optional(',')
         )),
         ')',
     ),
+
     argument_list: $ => seq(
-        '(',
-        repeat(seq(
-            choice(
-                $._expression,
-            ),
-            optional(',')
-        )),
-        ')',
+      '(',
+      commaSep($._expression),
+      ')',
     ),
+
     _type: $ => choice(
-        $.scalar_type,
-        $.object_type,
+      $.scalar_type,
+      $.object_type,
     ),
     scalar_type: $ => choice(
-        caseInsensitive('Bool'),
-        caseInsensitive('Integer'),
-        caseInsensitive('String'),
+      caseInsensitive('bool'),
+      caseInsensitive('integer'),
+      caseInsensitive('string'),
     ),
     object_type: $ => choice(
-        caseInsensitive('TBFile'),
-        caseInsensitive('TRecHandler'),
-        caseInsensitive('TArray'),
-        caseInsensitive('TStreamDoc'),
-        caseInsensitive('Object'),
+      caseInsensitive('tbfile'),
+      caseInsensitive('trechandler'),
+      caseInsensitive('tarray'),
+      caseInsensitive('tstreamdoc'),
+      caseInsensitive('object'),
     ),
     block: $ => seq(
-        repeat($._statement),
-        caseInsensitive('end'),
-        optional(';'),
+      repeat(choice(
+        $._variable_definition_block,
+        $._statement,
+      )),
+      $._end
     ),
-    _statement: $ => choice(
+    _statement: $ => seq(
+      choice(
         $.return_statement,
         $.function_call,
+        $.variable_assignment,
+      ),
+      ';'
     ),
     return_statement: $ => seq(
-        'return',
-        $._expression,
-        ';'
+      caseInsensitive('return'),
+      $._expression,
     ),
     function_call: $ => seq(
-        $.identifier,
-        $.argument_list,
-        ';'
+      repeat($.qualification_prefix),
+      $.identifier,
+      $.argument_list,
+    ),
+    variable_assignment: $ => seq(
+      repeat($.qualification_prefix),
+      $.identifier,
+      $.assignment_operator,
+      $._expression,
     ),
     _expression: $ => choice(
-        $.identifier,
-        $.number,
-        $.string_literal,
-        // more
+      $.identifier,
+      $.number,
+      $.string_literal,
+      $.function_call,
+      $.binary_expression,
+      // more
     ),
+
+    qualification_prefix: $ => seq(
+      $.identifier,
+      '.',
+    ),
+
+    binary_expression: $ => prec.left(seq($._expression, $.binary_operator, $._expression)),
+    binary_operator: $ => choice(
+      prec.left(3, $.multiplication_operator),
+      prec.left(2, $.add_operator),
+      prec.right($.assignment_operator),
+    ),
+    multiplication_operator: $ => choice('*', '/'),
+    add_operator: $ => choice('+', '-'),
+    assignment_operator: $ => '=',
+
     identifier: $ => /[a-zA-Zа-яА-Я_][a-zA-Zа-яА-Я0-9_]*/,
     number: $ => /\d+/,
     string_literal: $ => /"[^"]*"/,
-    extras: $ => choice(
-        $._comment,
-    ),
   }
 });
 
+function caseInsensitive (keyword, aliasAsWord = true) {
+  let result = new RegExp(keyword
+    .split('')
+    .map(l => l !== l.toUpperCase() ? `[${l.toLowerCase()}${l.toUpperCase()}]`: l)
+    .join('')
+  )
+  if (aliasAsWord) result = alias(result, keyword)
+  return result
+}
+
+function commaSep (rule) {
+  return optional(commaSep1(rule))
+}
+
+function commaSep1 (rule) {
+  return seq(rule, repeat(seq(',', rule)))
+}

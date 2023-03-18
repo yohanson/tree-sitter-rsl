@@ -11,7 +11,7 @@ end;
 
 --------------------------------------------------------------------------------
 
-(source_file
+(unit
   (class_definition
     (parent_classes
       (identifier))
@@ -20,18 +20,19 @@ end;
       (identifier)
       (identifier)
       (identifier))
-    (function_call
-      (identifier)
-      (argument_list
+    (class_body
+      (function_call
         (identifier)
-        (identifier)))
-    (comment_inline)
-    (function_definition
-      (identifier)
-      (parameter_list)
-      (block
-        (function_call
+        (argument_list
           (identifier)
-          (argument_list
-            (string_literal)
-            (identifier)))))))
+          (identifier)))
+      (comment)
+      (function_definition
+        (identifier)
+        (parameter_list)
+        (block
+          (function_call
+            (identifier)
+            (argument_list
+              (string_literal)
+              (identifier))))))))

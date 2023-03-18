@@ -28,5 +28,12 @@ end;
 obj = Second();           // Создание объекта класса Second()
 
 
-println(obj.Sum());    // Результат: 105
+println(obj.child.param.Sum());    // Результат: 105
 println(obj.Sum2());   // Результат: 205
+
+// single line
+
+/* single line */
+
+/* multi
+ line */

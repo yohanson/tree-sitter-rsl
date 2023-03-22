@@ -5,6 +5,19 @@
  "integer"
  "macro"
  "object"
+
+ "onerror"
+ "import"
+ "record"
+ "with"
+ "while"
+ "private"
+ "local"
+ "if"
+ "elif"
+ "else"
+ "const"
+
  "return"
  "string"
  "tarray"
@@ -18,17 +31,19 @@
  "."
  ","
  ";"
-] @delimiter
+] @punctuation.delimiter
 
 (variable_definition (identifier) @variable)
 (variable_assignment (identifier) @variable)
 (qualification_prefix (identifier) @variable)
 
-(function_definition (identifier) @function)
-(function_call (identifier) @function)
+(macro_definition (identifier) @function)
+(macro_call (identifier) @function)
 
 (comment) @comment
 (number) @number
+
+(string) @string
 (binary_operator) @operator
 (assignment_operator) @operator
 ; (identifier) @identifier

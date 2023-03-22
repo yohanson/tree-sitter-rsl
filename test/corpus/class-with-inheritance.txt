@@ -34,5 +34,5 @@ end;
           (function_call
             (identifier)
             (argument_list
-              (string_literal)
+              (string)
               (identifier))))))))

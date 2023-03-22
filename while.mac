@@ -1,0 +1,5 @@
+while (1)
+    var a = 2;
+    callme(3);
+    return 1;
+end;

@@ -1,16 +1,11 @@
 ================================================================================
-Comments
+Special identifier
 ================================================================================
-
-// single line
-
-/* single line */
-
-/* multi
- line */
+{X-2-r} = 1;
 --------------------------------------------------------------------------------
 
 (unit
-  (comment)
-  (comment)
-  (comment))
+  (variable_assignment
+    (identifier)
+    (assignment_operator)
+    (number)))

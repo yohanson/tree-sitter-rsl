@@ -13,26 +13,25 @@ end;
 
 (unit
   (class_definition
-    (parent_classes
-      (identifier))
+    (identifier)
     (identifier)
     (parameter_list
       (identifier)
       (identifier)
       (identifier))
     (class_body
-      (function_call
+      (macro_call
         (identifier)
         (argument_list
           (identifier)
           (identifier)))
       (comment)
-      (function_definition
+      (macro_definition
         (identifier)
         (parameter_list)
-        (block
-          (function_call
+        (macro_body
+          (macro_call
             (identifier)
             (argument_list
-              (string_literal)
+              (string)
               (identifier))))))))

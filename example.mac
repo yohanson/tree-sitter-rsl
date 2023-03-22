@@ -2,8 +2,18 @@
 Class First()             // Класс-родитель
    Var x = 2, y = 3;
 
-
    Macro Sum()
+        macro fold()
+            var x: Integer = 3;
+            for (var i, 0, 100, 1)
+                var r: TRecHandler;
+                r.func(1);
+                if (r.field[1] > 10)
+                    return 10;
+                end;
+            end;
+            return x;
+        end;
       return x + y;
    end;
 end;
@@ -23,6 +33,7 @@ Class (First) Second()    // Класс-наследник
       return Sum() + a;   // Использование метода Sum() наследника
    end;
 end;
+var str = "sdadf";
 
 
 obj = Second();           // Создание объекта класса Second()

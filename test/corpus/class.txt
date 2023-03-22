@@ -22,11 +22,11 @@ end;
     (class_body
       (variable_definition
         (identifier))
-      (function_definition
+      (macro_definition
         (identifier)
         (parameter_list)
-        (block
-          (function_call
+        (macro_body
+          (macro_call
             (identifier)
             (argument_list
               (identifier))))))))

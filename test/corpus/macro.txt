@@ -2,20 +2,40 @@
 Macro
 ================================================================================
 
-mAcro x(a, b): iNteger
+macro x(a, b): integer
   return 1;
-end
+end;
+
+x(a, b);
+x(a);
+x();
+x;
 
 --------------------------------------------------------------------------------
 
 (unit
-  (function_definition
+  (macro_definition
     (identifier)
     (parameter_list
       (identifier)
       (identifier))
-    (type_hint
-      (scalar_type))
-    (block
+    (type_declaration
+      (type
+        (scalar_type)))
+    (macro_body
       (return_statement
-        (number)))))
+        (number))))
+  (macro_call
+    (identifier)
+    (argument_list
+      (identifier)
+      (identifier)))
+  (macro_call
+    (identifier)
+    (argument_list
+      (identifier)))
+  (macro_call
+    (identifier)
+    (argument_list))
+  (macro_call
+    (identifier)))

@@ -5,10 +5,10 @@ println(obj.child.param.Sum());
 --------------------------------------------------------------------------------
 
 (unit
-  (function_call
+  (macro_call
     (identifier)
     (argument_list
-      (function_call
+      (macro_call
         (qualification_prefix
           (identifier))
         (qualification_prefix

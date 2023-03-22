@@ -1,0 +1,9 @@
+// vi:ft=rsl:
+
+callme(1);
+callme(1);
+
+macro xx(aa)
+   return 1;
+end;
+

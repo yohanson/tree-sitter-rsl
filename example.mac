@@ -1,4 +1,6 @@
-// vi:ft=rsl:
+// vi:ft=rsl:ts=4:sw=4:et
+
+
 Class First()             // Класс-родитель
    Var x = 2, y = 3;
 
@@ -34,7 +36,9 @@ Class (First) Second()    // Класс-наследник
    end;
 end;
 var str = "sdadf";
-
+var str2 = "asdf"
+    "asdf"
+    "zxcv";
 
 obj = Second();           // Создание объекта класса Second()
 

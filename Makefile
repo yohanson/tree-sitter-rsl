@@ -2,6 +2,9 @@
 
 all: src/grammar.json test
 
+clean:
+	rm -f src/grammar.json
+
 test:
 	tree-sitter test
 

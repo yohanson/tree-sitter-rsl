@@ -1,3 +1,4 @@
+; vi:ts=1:sw=1:et
 [
  "bool"
  "string"
@@ -15,30 +16,41 @@
 
 [
  "onerror"
- "import"
- "macro"
  "end"
  "class"
  "with"
+ "for"
  "while"
- "if"
- "elif"
- "else"
  "const"
  "return"
  "var"
+ "import"
+ "local"
+ "private"
 ] @keyword
 
-[
- "private"
- "local"
-] @attribute
+"import" @import
+"macro" @function
+
+(attribute) @attribute
 
 [
  "."
  ","
  ";"
 ] @punctuation.delimiter
+
+[
+ "["
+ "]"
+ "("
+ ")"
+] @punctuation.bracket
+
+[
+ "{"
+ "}"
+] @punctuation.special
 
 (variable_definition (identifier) @variable)
 (variable_assignment (identifier) @variable)
@@ -53,7 +65,24 @@
 (string) @string
 (binary_operator) @operator
 (assignment_operator) @operator
-; (identifier) @identifier
 
 (class_definition (identifier) @class)
 (class_definition (identifier) @class (identifier) @class)
+
+
+(if_statement [
+ "if"
+ "elif"
+ "else"
+ "end"
+] @conditional)
+
+(for_loop [
+  "for"
+  "end"
+] @keyword @loop)
+
+(while_loop [
+ "while"
+ "end"
+] @loop)

@@ -1,0 +1,41 @@
+================================================================================
+Statements
+================================================================================
+
+if (a[i] > 10)
+    call_some_func;
+end;
+
+for (var i, 0, a.size-1, 1)
+    call_some_func;
+end;
+
+--------------------------------------------------------------------------------
+
+(unit
+  (if_statement
+    (condition
+      (binary_expression
+        (identifier)
+        (subscript
+          (identifier))
+        (binary_operator
+          (relation_operator))
+        (number)))
+    (macro_call
+      (identifier)))
+  (for_loop
+    (variable_definition
+      (identifier))
+    (number)
+    (binary_expression
+      (macro_call
+        (qualification_prefix
+          (identifier))
+        (identifier))
+      (binary_operator
+        (add_operator))
+      (number))
+    (number)
+    (macro_call
+      (identifier))))

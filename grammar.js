@@ -3,10 +3,10 @@
 module.exports = grammar({
   name: 'rsl',
 
- extras: $ => [
-   /\s/,
-   $.comment,
- ],
+  extras: $ => [
+    /[ \t\r\n]/,
+    $.comment,
+  ],
 
   word: $ => $._word_identifier,
   
@@ -198,7 +198,7 @@ module.exports = grammar({
     ),
 
     number: $ => /\d+/,
-    string: $ => /"[^"]*"/,
+    string: $ => repeat1(/"[^"]*"/),
 
     comment: $ => token(choice(
       seq('//', /(\\(.|\r?\n)|[^\\\n])*/),
@@ -242,7 +242,7 @@ module.exports = grammar({
 
     argument_list: $ => seq(
       '(',
-      commaSep($._expression),
+      optional(commaSep($._expression)),
       ')',
     ),
 
@@ -309,9 +309,21 @@ module.exports = grammar({
 
     macro_call: $ => seq(
       repeat($.qualification_prefix),
-      field('name', $.identifier),
-      optional($.argument_list),
+      choice(
+        $._macro_call_with_parentheses,
+        prec(-2, $._macro_call_without_parentheses),
+      )
     ),
+
+    _macro_call_without_parentheses: $ => seq(
+      field('name', $.identifier),
+    ),
+
+    _macro_call_with_parentheses: $ => seq(
+      field('name', $.identifier),
+      $.argument_list,
+    ),
+
     variable_assignment: $ => seq(
       repeat($.qualification_prefix),
       $.identifier,
@@ -322,14 +334,30 @@ module.exports = grammar({
       $.identifier,
       $.number,
       $.string,
-      $.macro_call,
+      prec(-1, $.macro_call),
       $.binary_expression,
+      $._subscript_identifier,
       // more
     )),
 
     qualification_prefix: $ => seq(
-      $.identifier,
+      choice(
+        $.identifier,
+        $._macro_call_with_parentheses,
+      ),
       '.',
+    ),
+
+    _subscript_identifier: $ => seq(
+      repeat($.qualification_prefix),
+      $.identifier,
+      $.subscript,
+    ),
+
+    subscript: $ => seq(
+      '[',
+      $._expression,
+      ']'
     ),
 
     binary_expression: $ => prec.left(seq($._expression, $.binary_operator, $._expression)),

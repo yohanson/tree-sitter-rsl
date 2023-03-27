@@ -1,0 +1,14 @@
+=========
+Strings
+=========
+var s1 = "here we are";
+var s2 = "here " "we " "are";
+var s3 = "here "
+    "we "
+    "are";
+---------
+(unit
+    (variable_definition (identifier) (assignment_operator) (string))
+    (variable_definition (identifier) (assignment_operator) (string))
+    (variable_definition (identifier) (assignment_operator) (string))
+)

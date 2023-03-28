@@ -48,10 +48,10 @@ module.exports = grammar({
 
     _word_identifier: $ => /[a-zA-Zа-яА-Я_][a-zA-Zа-яА-Я0-9_]*/,
     _special_identifier: $ => seq('{', repeat1(/\S/), '}'),
-    identifier: $ => prec(-10, choice(
+    identifier: $ => choice(
       $._word_identifier,
       $._special_identifier,
-    )),
+    ),
 
     _definition: $ => choice(
       $.macro_definition,
@@ -84,7 +84,7 @@ module.exports = grammar({
       $.macro_definition,
     )),
 
-    _statement_list: $ => prec.right(semicolonSep1($._statement)),
+    _statement_list: $ => semicolonSep1($._statement),
     macro_definition: $ => seq(
       optional($.attribute),
       caseInsensitive('macro'),
@@ -97,7 +97,7 @@ module.exports = grammar({
     ),
 
     _typed_identifier: $ => seq(
-      $.identifier,
+      field('name', $.identifier),
       optional($.type_declaration),
     ),
 
@@ -153,11 +153,12 @@ module.exports = grammar({
       optional($.attribute),
       caseInsensitive('const'),
       commaSep1(seq(
-        $._typed_identifier,
+        $.constant,
         $.assignment_operator,
         $._expression,
       )),
     ),
+    constant: $ => $._typed_identifier,
 
     array_definition: $ => seq(
       optional($.attribute),
@@ -250,48 +251,49 @@ module.exports = grammar({
     // for (var i, 0, 100, 1)
     for_loop: $ => seq(
       caseInsensitive('for'),
-      optional(
-        seq(
-          '(',
-          field('variable', choice(
-            $.variable_definition,
-            $.identifier
-          )),
-          optional(seq(
-            ',', field('start', $._expression),
-            optional(seq(
-              ',', field('end', $._expression),
-              optional(seq(
-                ',', field('step', $._expression)
-              )),
-            )),
-          )),
-          ')',
-        ),
-      ),
-      $._statement_list,
+      optional($.for_arguments),
+      optional($._statement_list),
       $._end
     ),
+
+    for_arguments: $ => seq(
+      '(',
+      field('variable', choice(
+        $.variable_definition,
+        $.identifier
+      )),
+      optional(seq(
+        ',', field('start', $._expression),
+        optional(seq(
+          ',', field('end', $._expression),
+          optional(seq(
+            ',', field('step', $._expression)
+          )),
+        )),
+      )),
+      ')',
+    ),
+
     while_loop: $ => prec(10, seq(
       caseInsensitive('while'),
       $.condition,
-      $._statement_list,
+      optional($._statement_list),
       $._end
     )),
 
     if_statement: $ => seq(
       caseInsensitive('if'),
       $.condition,
-      $._statement_list,
+      optional($._statement_list),
       repeat(seq(
         caseInsensitive('elif'),
         $.condition,
-        $._statement_list,
+        optional($._statement_list),
       )),
-      optional(seq(
+      prec(1, optional(seq(
         'else',
-        $._statement_list,
-      )),
+        optional($._statement_list),
+      ))),
       $._end
     ),
 

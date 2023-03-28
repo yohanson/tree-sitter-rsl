@@ -298,6 +298,32 @@
     }
   },
   {
+    "type": "constant",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "type_declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "constant_definition",
     "named": true,
     "fields": {},
@@ -315,6 +341,10 @@
         },
         {
           "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "constant",
           "named": true
         },
         {
@@ -339,10 +369,6 @@
         },
         {
           "type": "subscript",
-          "named": true
-        },
-        {
-          "type": "type_declaration",
           "named": true
         }
       ]
@@ -477,7 +503,7 @@
     }
   },
   {
-    "type": "for_loop",
+    "type": "for_arguments",
     "named": true,
     "fields": {
       "end": {
@@ -584,7 +610,7 @@
       },
       "variable": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "identifier",
@@ -596,10 +622,15 @@
           }
         ]
       }
-    },
+    }
+  },
+  {
+    "type": "for_loop",
+    "named": true,
+    "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "array_definition",
@@ -611,6 +642,10 @@
         },
         {
           "type": "file_definition",
+          "named": true
+        },
+        {
+          "type": "for_arguments",
           "named": true
         },
         {
@@ -927,15 +962,22 @@
   {
     "type": "parameter_list",
     "named": true,
-    "fields": {},
+    "fields": {
+      "name": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
       "types": [
-        {
-          "type": "identifier",
-          "named": true
-        },
         {
           "type": "type_declaration",
           "named": true
@@ -1252,7 +1294,18 @@
   {
     "type": "variable_definition",
     "named": true,
-    "fields": {},
+    "fields": {
+      "name": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,

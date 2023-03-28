@@ -21,16 +21,17 @@
  "with"
  "for"
  "while"
- "const"
- "return"
  "var"
  "import"
  "local"
  "private"
+ "if"
+ "else"
+ "elif"
 ] @keyword
 
-"import" @import
-"macro" @function
+"import" @include
+"return" @keyword.return
 
 (attribute) @attribute
 
@@ -56,8 +57,15 @@
 (variable_assignment (identifier) @variable)
 (qualification_prefix (identifier) @variable)
 
-(macro_definition (identifier) @function)
+(macro_definition
+  "macro" @keyword.function
+  (identifier) @function)
 (macro_call (identifier) @function)
+
+(constant_definition
+  "const" @definition.constant
+  (constant) @constant
+)
 
 (comment) @comment
 (number) @number
@@ -80,9 +88,9 @@
 (for_loop [
   "for"
   "end"
-] @keyword @loop)
+] @repeat)
 
 (while_loop [
  "while"
  "end"
-] @loop)
+] @repeat)

@@ -1,11 +1,22 @@
 // vi:ft=rsl:ts=4:sw=4:et
 
+const DEBUG = False;
+
+if (x > 1)
+else
+end;
+
+for
+end;
 
 Class First()             // Класс-родитель
    Var x = 2, y = 3;
 
    Macro Sum()
         macro fold()
+            if (DEBUG)
+                println("hi");
+            end;
             var x: Integer = 3;
             for (var i, 0, 100, 1)
                 var r: TRecHandler;

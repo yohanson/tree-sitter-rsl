@@ -130,6 +130,36 @@ module.exports = grammar({
       caseInsensitive('tstreamdoc'),
       caseInsensitive('object'),
     ),
+    boolean_literal: $ => choice(
+      caseInsensitive('true'),
+      caseInsensitive('false')
+    ),
+    constant_builtin: $ => choice(
+      caseInsensitive('v_integer'),
+      caseInsensitive('v_double'),
+      caseInsensitive('v_doublel'),
+      caseInsensitive('v_string'),
+      caseInsensitive('v_bool'),
+      caseInsensitive('v_date'),
+      caseInsensitive('v_time'),
+      caseInsensitive('v_dttm'),
+      caseInsensitive('v_memaddr'),
+      caseInsensitive('v_proc'),
+      caseInsensitive('v_r2m'),
+      caseInsensitive('v_decimal'),
+      caseInsensitive('v_numeric'),
+      caseInsensitive('v_money'),
+      caseInsensitive('v_moneyl'),
+      caseInsensitive('v_undef'),
+    ),
+    special_literal: $ => choice(
+      caseInsensitive('optval'),
+      caseInsensitive('nullval'),
+      caseInsensitive('null'),
+    ),
+    variable_builtin: $ => choice(
+      caseInsensitive('this'),
+    ),
 
     variable_definition: $ => seq(
       optional($.attribute),
@@ -339,6 +369,10 @@ module.exports = grammar({
       prec(-1, $.macro_call),
       $.binary_expression,
       $._subscript_identifier,
+      $.boolean_literal,
+      $.special_literal,
+      $.constant_builtin,
+      $.variable_builtin,
       // more
     )),
 

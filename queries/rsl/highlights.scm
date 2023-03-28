@@ -1,10 +1,6 @@
 ; vi:ts=1:sw=1:et
-[
- "bool"
- "string"
- "integer"
- "record"
-] @type.builtin
+(scalar_type) @type.builtin
+(object_type) @type.builtin
 
 [
  "tarray"
@@ -29,6 +25,11 @@
  "else"
  "elif"
 ] @keyword
+
+(constant_builtin) @constant.builtin
+(special_literal) @constant.builtin
+
+(variable_builtin) @variable.builtin
 
 "import" @include
 "return" @keyword.return

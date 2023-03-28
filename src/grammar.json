@@ -949,6 +949,378 @@
         }
       ]
     },
+    "boolean_literal": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "TOKEN",
+            "content": {
+              "type": "PREC",
+              "value": 1,
+              "content": {
+                "type": "PATTERN",
+                "value": "[Tt][Rr][Uu][Ee]"
+              }
+            }
+          },
+          "named": false,
+          "value": "true"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "TOKEN",
+            "content": {
+              "type": "PREC",
+              "value": 1,
+              "content": {
+                "type": "PATTERN",
+                "value": "[Ff][Aa][Ll][Ss][Ee]"
+              }
+            }
+          },
+          "named": false,
+          "value": "false"
+        }
+      ]
+    },
+    "constant_builtin": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "TOKEN",
+            "content": {
+              "type": "PREC",
+              "value": 1,
+              "content": {
+                "type": "PATTERN",
+                "value": "[Vv]_[Ii][Nn][Tt][Ee][Gg][Ee][Rr]"
+              }
+            }
+          },
+          "named": false,
+          "value": "v_integer"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "TOKEN",
+            "content": {
+              "type": "PREC",
+              "value": 1,
+              "content": {
+                "type": "PATTERN",
+                "value": "[Vv]_[Dd][Oo][Uu][Bb][Ll][Ee]"
+              }
+            }
+          },
+          "named": false,
+          "value": "v_double"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "TOKEN",
+            "content": {
+              "type": "PREC",
+              "value": 1,
+              "content": {
+                "type": "PATTERN",
+                "value": "[Vv]_[Dd][Oo][Uu][Bb][Ll][Ee][Ll]"
+              }
+            }
+          },
+          "named": false,
+          "value": "v_doublel"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "TOKEN",
+            "content": {
+              "type": "PREC",
+              "value": 1,
+              "content": {
+                "type": "PATTERN",
+                "value": "[Vv]_[Ss][Tt][Rr][Ii][Nn][Gg]"
+              }
+            }
+          },
+          "named": false,
+          "value": "v_string"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "TOKEN",
+            "content": {
+              "type": "PREC",
+              "value": 1,
+              "content": {
+                "type": "PATTERN",
+                "value": "[Vv]_[Bb][Oo][Oo][Ll]"
+              }
+            }
+          },
+          "named": false,
+          "value": "v_bool"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "TOKEN",
+            "content": {
+              "type": "PREC",
+              "value": 1,
+              "content": {
+                "type": "PATTERN",
+                "value": "[Vv]_[Dd][Aa][Tt][Ee]"
+              }
+            }
+          },
+          "named": false,
+          "value": "v_date"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "TOKEN",
+            "content": {
+              "type": "PREC",
+              "value": 1,
+              "content": {
+                "type": "PATTERN",
+                "value": "[Vv]_[Tt][Ii][Mm][Ee]"
+              }
+            }
+          },
+          "named": false,
+          "value": "v_time"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "TOKEN",
+            "content": {
+              "type": "PREC",
+              "value": 1,
+              "content": {
+                "type": "PATTERN",
+                "value": "[Vv]_[Dd][Tt][Tt][Mm]"
+              }
+            }
+          },
+          "named": false,
+          "value": "v_dttm"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "TOKEN",
+            "content": {
+              "type": "PREC",
+              "value": 1,
+              "content": {
+                "type": "PATTERN",
+                "value": "[Vv]_[Mm][Ee][Mm][Aa][Dd][Dd][Rr]"
+              }
+            }
+          },
+          "named": false,
+          "value": "v_memaddr"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "TOKEN",
+            "content": {
+              "type": "PREC",
+              "value": 1,
+              "content": {
+                "type": "PATTERN",
+                "value": "[Vv]_[Pp][Rr][Oo][Cc]"
+              }
+            }
+          },
+          "named": false,
+          "value": "v_proc"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "TOKEN",
+            "content": {
+              "type": "PREC",
+              "value": 1,
+              "content": {
+                "type": "PATTERN",
+                "value": "[Vv]_[Rr]2[Mm]"
+              }
+            }
+          },
+          "named": false,
+          "value": "v_r2m"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "TOKEN",
+            "content": {
+              "type": "PREC",
+              "value": 1,
+              "content": {
+                "type": "PATTERN",
+                "value": "[Vv]_[Dd][Ee][Cc][Ii][Mm][Aa][Ll]"
+              }
+            }
+          },
+          "named": false,
+          "value": "v_decimal"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "TOKEN",
+            "content": {
+              "type": "PREC",
+              "value": 1,
+              "content": {
+                "type": "PATTERN",
+                "value": "[Vv]_[Nn][Uu][Mm][Ee][Rr][Ii][Cc]"
+              }
+            }
+          },
+          "named": false,
+          "value": "v_numeric"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "TOKEN",
+            "content": {
+              "type": "PREC",
+              "value": 1,
+              "content": {
+                "type": "PATTERN",
+                "value": "[Vv]_[Mm][Oo][Nn][Ee][Yy]"
+              }
+            }
+          },
+          "named": false,
+          "value": "v_money"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "TOKEN",
+            "content": {
+              "type": "PREC",
+              "value": 1,
+              "content": {
+                "type": "PATTERN",
+                "value": "[Vv]_[Mm][Oo][Nn][Ee][Yy][Ll]"
+              }
+            }
+          },
+          "named": false,
+          "value": "v_moneyl"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "TOKEN",
+            "content": {
+              "type": "PREC",
+              "value": 1,
+              "content": {
+                "type": "PATTERN",
+                "value": "[Vv]_[Uu][Nn][Dd][Ee][Ff]"
+              }
+            }
+          },
+          "named": false,
+          "value": "v_undef"
+        }
+      ]
+    },
+    "special_literal": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "TOKEN",
+            "content": {
+              "type": "PREC",
+              "value": 1,
+              "content": {
+                "type": "PATTERN",
+                "value": "[Oo][Pp][Tt][Vv][Aa][Ll]"
+              }
+            }
+          },
+          "named": false,
+          "value": "optval"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "TOKEN",
+            "content": {
+              "type": "PREC",
+              "value": 1,
+              "content": {
+                "type": "PATTERN",
+                "value": "[Nn][Uu][Ll][Ll][Vv][Aa][Ll]"
+              }
+            }
+          },
+          "named": false,
+          "value": "nullval"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "TOKEN",
+            "content": {
+              "type": "PREC",
+              "value": 1,
+              "content": {
+                "type": "PATTERN",
+                "value": "[Nn][Uu][Ll][Ll]"
+              }
+            }
+          },
+          "named": false,
+          "value": "null"
+        }
+      ]
+    },
+    "variable_builtin": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "TOKEN",
+            "content": {
+              "type": "PREC",
+              "value": 1,
+              "content": {
+                "type": "PATTERN",
+                "value": "[Tt][Hh][Ii][Ss]"
+              }
+            }
+          },
+          "named": false,
+          "value": "this"
+        }
+      ]
+    },
     "variable_definition": {
       "type": "SEQ",
       "members": [
@@ -2426,6 +2798,22 @@
           {
             "type": "SYMBOL",
             "name": "_subscript_identifier"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "boolean_literal"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "special_literal"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "constant_builtin"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "variable_builtin"
           }
         ]
       }

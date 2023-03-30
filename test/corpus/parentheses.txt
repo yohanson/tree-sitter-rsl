@@ -1,0 +1,25 @@
+================================================================================
+Parentheses
+================================================================================
+if ((x > 1) or (a > 1))
+end;
+--------------------------------------------------------------------------------
+
+(unit
+  (if_statement
+    (condition
+      (binary_expression
+        (parenthesized_expression
+          (binary_expression
+            (identifier)
+            (binary_operator
+              (relation_operator))
+            (number)))
+        (binary_operator
+          (add_operator))
+        (parenthesized_expression
+          (binary_expression
+            (identifier)
+            (binary_operator
+              (relation_operator))
+            (number)))))))

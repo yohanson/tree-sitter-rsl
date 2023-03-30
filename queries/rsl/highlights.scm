@@ -26,10 +26,13 @@
  "elif"
 ] @keyword
 
+(boolean_literal) @boolean
+
 (constant_builtin) @constant.builtin
 (special_literal) @constant.builtin
 
 (variable_builtin) @variable.builtin
+;(macro_builtin) @function.builtin
 
 "import" @include
 "return" @keyword.return
@@ -95,3 +98,9 @@
  "while"
  "end"
 ] @repeat)
+
+(record_definition [ "record" "file" ] @type.builtin (identifier) @variable)
+(record_definition (record_parameter) @attribute @keyword)
+
+(array_definition "array" @type.builtin (identifier) @variable)
+

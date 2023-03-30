@@ -1,10 +1,22 @@
 // vi:ft=rsl:ts=4:sw=4:et
-
+println(x);
 const DEBUG = False;
 
-if (x > 1)
-else
+record xx ("ai");
+
+var x = 0;
+
+if ((x > 1) or (a > 1))
+    aa;
 end;
+
+array a1;
+var a2 = TArray;
+
+ValType(a1);
+
+record r1 ("dobj_dbt") key 1 write;
+file r1 ("msg.txt") txt 2048;
 
 for
 end;

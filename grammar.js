@@ -60,7 +60,6 @@ module.exports = grammar({
 
     _statement: $ => choice(
       $.array_definition,
-      $.file_definition,
       $.record_definition,
       $.while_loop,
       $.for_loop,
@@ -88,8 +87,8 @@ module.exports = grammar({
     macro_definition: $ => seq(
       optional($.attribute),
       caseInsensitive('macro'),
-      $.identifier,
-      $.parameter_list,
+      field('name', $.identifier),
+      optional($.parameter_list),
       optional($.type_declaration),
       optional($.macro_body),
       optional($.error_handler),
@@ -159,6 +158,10 @@ module.exports = grammar({
     ),
     variable_builtin: $ => choice(
       caseInsensitive('this'),
+      caseInsensitive('{curdate}'),
+    ),
+    macro_builtin: $ => choice(
+      caseInsensitive('valtype'),
     ),
 
     variable_definition: $ => seq(
@@ -196,37 +199,39 @@ module.exports = grammar({
       commaSep1($.identifier),
     ),
 
-    file_definition: $ => seq(
+    record_definition: $ => seq(
       optional($.attribute),
-      caseInsensitive('file'),
+      choice(
+        caseInsensitive('record'),
+        caseInsensitive('file'),
+      ),
       $.identifier,
       '(',
       commaSep1($.filename),
       ')',
-      repeat($.file_parameter),
+      repeat($.record_parameter),
     ),
-    file_parameter: $ => choice(
+    record_parameter: $ => choice(
       caseInsensitive('normal'),
-      caseInsensitive('key number'),
       caseInsensitive('write'),
       caseInsensitive('mem'),
-      seq(caseInsensitive('txt'), optional($.number)),
       caseInsensitive('btr'),
-      caseInsensitive('sort number'),
       caseInsensitive('dbf'),
       caseInsensitive('dialog'),
       caseInsensitive('blob'),
+      seq(
+        caseInsensitive('txt'),
+        optional($.number) // line buffer size
+      ),
+      seq(
+        choice(
+          caseInsensitive('key'),
+          caseInsensitive('sort'),
+        ),
+        $.number
+      ),
     ),
 
-    record_definition: $ => seq(
-      optional($.attribute),
-      caseInsensitive('record'),
-      $.identifier,
-      '(',
-      commaSep1($.filename),
-      ')',
-      repeat($.file_parameter),
-    ),
 
     number: $ => /\d+/,
     string: $ => repeat1(/"[^"]*"/),
@@ -366,15 +371,22 @@ module.exports = grammar({
       $.identifier,
       $.number,
       $.string,
+      $.parenthesized_expression,
       prec(-1, $.macro_call),
       $.binary_expression,
+      $.unary_expression,
       $._subscript_identifier,
       $.boolean_literal,
       $.special_literal,
       $.constant_builtin,
       $.variable_builtin,
-      // more
     )),
+
+    parenthesized_expression: $ => seq(
+      '(',
+      $._expression,
+      ')',
+    ),
 
     qualification_prefix: $ => seq(
       choice(
@@ -407,6 +419,15 @@ module.exports = grammar({
     add_operator: $ => choice('+', '-', caseInsensitive('or')),
     relation_operator: $ => choice('==', '!=', '<', '<=', '>', '>='),
     assignment_operator: $ => '=',
+
+    unary_expression: $ => prec.left(seq(
+      $.unary_operator,
+      $._expression,
+    )),
+    unary_operator: $ => choice(
+      caseInsensitive('not'),
+      '-',
+    ),
 
   }
 });

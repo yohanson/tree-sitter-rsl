@@ -84,6 +84,7 @@ module.exports = grammar({
     )),
 
     _statement_list: $ => semicolonSep1($._statement),
+
     macro_definition: $ => seq(
       optional($.attribute),
       caseInsensitive('macro'),
@@ -311,29 +312,30 @@ module.exports = grammar({
 
     while_loop: $ => prec(10, seq(
       caseInsensitive('while'),
-      $.condition,
+      field('condition', $.parenthesized_expression),
       optional($._statement_list),
       $._end
     )),
 
     if_statement: $ => seq(
       caseInsensitive('if'),
-      $.condition,
+      field('condition', $.parenthesized_expression),
       optional($._statement_list),
+
       repeat(seq(
         caseInsensitive('elif'),
-        $.condition,
+        field('condition', $.parenthesized_expression),
         optional($._statement_list),
       )),
-      prec(1, optional(seq(
-        'else',
+
+      optional(seq(
+        caseInsensitive('else'),
         optional($._statement_list),
-      ))),
+      )),
+
       $._end
     ),
 
-    condition: $ => seq('(', $._expression, ')'),
-    
     return_statement: $ => seq(
       caseInsensitive('return'),
       $._expression,
@@ -341,7 +343,7 @@ module.exports = grammar({
 
     output_statement: $ => seq(
       '[', $.string, ']',
-      optional(seq('(', commaSep($._expression), ')'))
+      optional($.argument_list)
     ),
 
     macro_call: $ => seq(

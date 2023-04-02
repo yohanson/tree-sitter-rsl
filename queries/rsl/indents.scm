@@ -1,11 +1,15 @@
-;"macro" @indent.begin
-(macro_definition) @indent.begin
+[
+    (class_definition)
+    (macro_definition)
+    (while_loop)
+    (for_loop)
+    (if_statement)
+] @indent.begin
+
+(if_statement [ "else" "elif" ] @indent.branch)
 
 "end" @indent.branch
 
-(if_statement) @indent.begin
-(if_statement "elif") @indent.branch
-(if_statement "else") @indent.branch
+(macro_definition (error_handler) @indent.branch)
 
 (comment) @indent.auto
-(ERROR) @indent.auto

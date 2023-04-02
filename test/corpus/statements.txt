@@ -17,7 +17,7 @@ end;
 
 (unit
   (if_statement
-    (condition
+    (parenthesized_expression
       (binary_expression
         (identifier)
         (subscript

@@ -104,3 +104,4 @@
 
 (array_definition "array" @type.builtin (identifier) @variable)
 
+(error_handler "onerror" @exception)

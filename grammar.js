@@ -222,20 +222,25 @@ module.exports = grammar({
       caseInsensitive('blob'),
       seq(
         caseInsensitive('txt'),
-        optional($.number) // line buffer size
+        optional($._integer) // line buffer size
       ),
       seq(
         choice(
           caseInsensitive('key'),
           caseInsensitive('sort'),
         ),
-        $.number
+        $._integer
       ),
     ),
 
 
-    number: $ => /\d+/,
-    string: $ => repeat1(/"[^"]*"/),
+    number: $ => choice(
+      $._integer,
+      $._decimal,
+    ),
+    _integer: $ => /\d+/,
+    _decimal: $ => /\d+\.\d+/,
+    string: $ => repeat1(/"([^"]|\\")*"/),
 
     comment: $ => token(choice(
       seq('//', /(\\(.|\r?\n)|[^\\\n])*/),

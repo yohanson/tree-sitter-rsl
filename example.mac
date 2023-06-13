@@ -1,8 +1,12 @@
 // vi:ft=rsl:ts=4:sw=4:et
-println(x);
 const DEBUG = False;
 
-record xx ("ai");
+import "macro.mac";
+
+private var d: double = 1.1;
+
+xx;
+record yy ("ai");
 
 var x = 0;
 
@@ -63,7 +67,7 @@ var str2 = "asdf"
     "asdf"
     "zxcv";
 
-obj = Second();           // Создание объекта класса Second()
+var obj = Second();           // Создание объекта класса Second()
 
 
 println(obj.child.param.Sum());    // Результат: 105

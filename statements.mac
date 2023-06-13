@@ -1,2 +1,4 @@
-var a = 2;
-var a = 2;
+// vi:ft=rsl
+if ((x > 1) or (a > 1))
+    aa;
+end

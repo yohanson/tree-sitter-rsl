@@ -1845,7 +1845,7 @@
               "members": [
                 {
                   "type": "SYMBOL",
-                  "name": "number"
+                  "name": "_integer"
                 },
                 {
                   "type": "BLANK"
@@ -1896,21 +1896,38 @@
             },
             {
               "type": "SYMBOL",
-              "name": "number"
+              "name": "_integer"
             }
           ]
         }
       ]
     },
     "number": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_integer"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_decimal"
+        }
+      ]
+    },
+    "_integer": {
       "type": "PATTERN",
       "value": "\\d+"
+    },
+    "_decimal": {
+      "type": "PATTERN",
+      "value": "\\d+\\.\\d+"
     },
     "string": {
       "type": "REPEAT1",
       "content": {
         "type": "PATTERN",
-        "value": "\"[^\"]*\""
+        "value": "\"([^\"]|\\\\\")+\""
       }
     },
     "comment": {

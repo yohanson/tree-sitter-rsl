@@ -1,9 +1,8 @@
 // vi:ft=rsl:
 
-callme(1);
-callme(1);
-
-macro xx(aa)
+// Macro for testing imports
+macro xx(aa: Integer): Integer
    return 1;
 end;
 
+xx;

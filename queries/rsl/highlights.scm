@@ -76,6 +76,7 @@
 
 (string) @string
 (binary_operator) @operator
+(unary_operator) @operator
 (assignment_operator) @operator
 
 (class_definition (identifier) @class)

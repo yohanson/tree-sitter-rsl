@@ -6,8 +6,10 @@ var s2 = "here " "we " "are";
 var s3 = "here "
     "we "
     "are";
+var s4 = "string with a \" (quote)"
 ---------
 (unit
+    (variable_definition (identifier) (assignment_operator) (string))
     (variable_definition (identifier) (assignment_operator) (string))
     (variable_definition (identifier) (assignment_operator) (string))
     (variable_definition (identifier) (assignment_operator) (string))

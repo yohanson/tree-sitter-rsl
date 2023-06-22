@@ -1,0 +1,23 @@
+================================================================================
+Output statement
+================================================================================
+[];
+[asdf];
+[#####](10.5);
+[##### rub per ##################](10.5:w:4, timeSpan:c);
+--------------------------------------------------------------------------------
+
+(unit
+  (output_statement
+    (template))
+  (output_statement
+    (template))
+  (output_statement
+    (template)
+    (formatted_argument_list
+      (number)))
+  (output_statement
+    (template)
+    (formatted_argument_list
+      (number)
+      (identifier))))

@@ -75,6 +75,7 @@
 (number) @number
 
 (string) @string
+(template) @string
 (binary_operator) @operator
 (unary_operator) @operator
 (assignment_operator) @operator

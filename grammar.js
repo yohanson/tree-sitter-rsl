@@ -347,9 +347,43 @@ module.exports = grammar({
     ),
 
     output_statement: $ => seq(
-      '[', $.string, ']',
-      optional($.argument_list)
+      seq('[', $.template, ']'),
+      optional($.formatted_argument_list)
     ),
+
+    template: $ => /[^]]*/,
+
+    formatted_argument_list: $ => seq(
+      '(',
+      commaSep(
+        seq(
+          $._expression,
+          repeat($._format_specifier)
+        )
+      ),
+      ')',
+    ),
+
+    _format_specifier: $ => seq(
+      ':',
+      field('format_specifier', choice(
+        $._integer,
+        'l',
+        'r',
+        'c',
+        'a',
+        't',
+        'd',
+        'm',
+        'w',
+        'z',
+        'f',
+        'i',
+        'iv',
+        'v'
+      ))
+    ),
+
 
     macro_call: $ => seq(
       repeat($.qualification_prefix),

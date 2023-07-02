@@ -1,4 +1,0 @@
-// vi:ft=rsl
-if ((x > 1) or (a > 1))
-    aa;
-end
